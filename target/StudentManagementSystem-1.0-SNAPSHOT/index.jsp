@@ -1,128 +1,92 @@
-Sure, here's the modified index.jsp to include the course management feature:<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Student Management System</title>
+    <title>Login - Student Management System</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
             display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        .hero {
-            background: #333;
-            color: #fff;
-            padding: 3rem 0;
+        .login-box {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+        .login-box h2 {
             text-align: center;
-        }
-        .hero h1 {
-            font-size: 2.5rem;
             margin-bottom: 1rem;
         }
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto;
+        .form-group {
+            margin-bottom: 1rem;
         }
-        .container {
-            width: 80%;
-            margin: 2rem auto;
-            flex: 1;
+        label {
+            display: block;
+            margin-bottom: 0.3rem;
         }
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-        }
-        .feature-box {
-            background: #fff;
+        input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            padding: 1.5rem;
-            width: 300px;
-            text-align: center;
-        }
-        .feature-box h3 {
-            color: #333;
-            margin-top: 0;
         }
         .btn {
-            display: inline-block;
+            width: 100%;
+            padding: 0.6rem;
             background: #333;
             color: #fff;
             border: none;
-            padding: 0.7rem 1.5rem;
-            margin-top: 1rem;
             border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
             font-size: 1rem;
-            transition: background 0.3s;
+            cursor: pointer;
         }
         .btn:hover {
             background: #555;
         }
-        footer {
+        .error {
+            color: red;
             text-align: center;
-            padding: 1rem;
-            background: #333;
-            color: #fff;
-            margin-top: auto;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
 <body>
-    <div class="hero">
-        <h1>Student Management System</h1>
-        <p>A comprehensive web application for managing student information using JSP, Servlets, MVC architecture, and MySQL database.</p>
-    </div>
 
-    <div class="container">
-        <div class="features">
-            <div class="feature-box">
-                <h3>View Students</h3>
-                <p>Access and view all students currently in the system.</p>
-                <a href="${pageContext.request.contextPath}/students" class="btn">View All Students</a>
-            </div>
+<div class="login-box">
+    <h2>Login</h2>
 
-            <div class="feature-box">
-                <h3>Add New Student</h3>
-                <p>Register a new student with their details and course information.</p>
-                <a href="${pageContext.request.contextPath}/student/new" class="btn">Add Student</a>
-            </div>
+    <c:if test="${not empty error}">
+        <div class="error">${error}</div>
+    </c:if>
 
-            <div class="feature-box">
-                <h3>Manage Records</h3>
-                <p>Edit and update existing student records or remove outdated entries.</p>
-                <a href="${pageContext.request.contextPath}/students" class="btn">Manage Students</a>
-            </div>
-             <div class="feature-box">
-                <h3>View Courses</h3>
-                <p>Access and view all courses in the system.</p>
-                <a href="${pageContext.request.contextPath}/courses" class="btn">View All Courses</a>
-            </div>
-            <div class="feature-box">
-                <h3>Add New Course</h3>
-                <p>Add a new course to the system.</p>
-                <a href="${pageContext.request.contextPath}/courses/new" class="btn">Add Course</a>
-            </div>
-            <div class="feature-box">
-                 <h3>Manage Courses</h3>
-                 <p>Edit and update existing courses or remove outdated entries.</p>
-                 <a href="${pageContext.request.contextPath}/courses" class="btn">Manage Courses</a>
-            </div>
+    <form action="${pageContext.request.contextPath}/login" method="post">
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="email" required />
         </div>
-    </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" name="password" required />
+        </div>
+        <div class="form-group">
+            <label>Role:</label>
+            <select id="role" name="role">
+                <option value="Admin">Admin</option>
+                <option value="Teacher">Teacher</option>
+            </select>
+        </div>
+        <button type="submit" class="btn">Login</button>
+    </form>
+</div>
 
-    <footer>
-        &copy; 2025 Student Management System
-    </footer>
 </body>
 </html>

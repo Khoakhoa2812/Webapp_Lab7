@@ -1,23 +1,31 @@
-<%@ include file="/WEB-INF/views/header.jsp" %>
-<h2>Add New Course</h2>
-<form action="${pageContext.request.contextPath}/courses/add" method="post">
+<%@ include file="header.jsp" %>
+<c:if test="${course != null}">
+    <h2>Edit Course</h2>
+    <form action="${pageContext.request.contextPath}/course/update" method="post">
+        <input type="hidden" name="id" value="${course.id}" />
+</c:if>
+<c:if test="${course == null}">
+    <h2>Add New Course</h2>
+    <form action="${pageContext.request.contextPath}/course/add" method="post">
+</c:if>
+
     <div class="form-group">
-        <label for="code">Code:</label>
-        <input type="text" id="code" name="code" value="" required />
+        <label>Code:</label>
+        <input type="text" name="code" value="${course.code}" required />
     </div>
     <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="" required />
+        <label>Name:</label>
+        <input type="text" name="name" value="${course.name}" required />
     </div>
     <div class="form-group">
-        <label for="description">Description:</label>
-        <input type="text" id="description" name="description" value="" required />
+        <label>Description:</label>
+        <input type="text" name="description" value="${course.description}" />
     </div>
     <div class="form-group">
-        <label for="credits">Credits:</label>
-        <input type="number" id="credits" name="credits" value="" required />
+        <label>Credits:</label>
+        <input type="number" name="credits" value="${course.credits}" min="0" />
     </div>
     <button type="submit" class="btn">Save</button>
     <a href="${pageContext.request.contextPath}/courses" class="btn">Cancel</a>
 </form>
-<%@ include file="/WEB-INF/views/footer.jsp" %>
+<%@ include file="footer.jsp" %>
